@@ -233,6 +233,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  form_view_model:
+    dependency: "direct main"
+    description:
+      path: "packages/form_view_model"
+      relative: true
+    source: path
+    version: "0.0.1"
   freezed:
     dependency: "direct dev"
     description:
