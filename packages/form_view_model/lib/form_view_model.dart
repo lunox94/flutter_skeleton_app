@@ -1,5 +1,6 @@
 library form_view_model;
 
+import 'package:flutter/foundation.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 /// A wrapper for the [reactive_forms] package.
@@ -28,7 +29,8 @@ abstract class BaseFormViewModel<T> {
 
   /// Disposes the view model resources, e.g. a value changes subscription on
   /// a [FormControl] field.
-  void dispose() => {};
+  @mustCallSuper
+  void dispose() => _form.dispose();
 
   BaseFormViewModel(this._form);
 }
