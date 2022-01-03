@@ -1,17 +1,16 @@
-import 'package:flutter_skeleton_app/src/application/auth/app_user_credentials.dart';
+import 'package:flutter_skeleton_app/src/application/auth/login_params.dart';
 import 'package:form_view_model/form_view_model.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-class AppUserCredentialsViewModel
-    extends BaseFormViewModel<AppUserCredentials> {
+class AppUserCredentialsViewModel extends BaseFormViewModel<LoginParams> {
   AppUserCredentialsViewModel() : super(_buildForm());
 
   @override
-  AppUserCredentials? get model =>
-      form.valid ? AppUserCredentials.fromJson(form.value) : null;
+  LoginParams? get model =>
+      form.valid ? LoginParams.fromJson(form.value) : null;
 
   @override
-  set model(AppUserCredentials? model) {
+  set model(LoginParams? model) {
     form.patchValue(model?.toJson());
   }
 
