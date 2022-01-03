@@ -2,6 +2,6 @@ part of 'auth_bloc.dart';
 
 @freezed
 class AuthEvent with _$AuthEvent {
-  const factory AuthEvent.authUserChanged({AppUser? user}) = AuthUserChanged;
-  const factory AuthEvent.authLogoutRequested() = AuthLogoutRequested;
+  const factory AuthEvent.userChanged({AppUser? user}) = _UserChanged;
+  const factory AuthEvent.logoutRequested() = _LogoutRequested;
 }
