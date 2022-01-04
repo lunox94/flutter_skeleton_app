@@ -11,22 +11,24 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => LoginFormProviderBloc(),
-      child: BlocBuilder<LoginFormProviderBloc, LoginFormProviderState>(
-        builder: (context, state) {
-          return ReactiveForm(
-            formGroup: state.viewModel.form,
-            child: Column(
-              children: [
-                ReactiveTextField(
-                  formControlName: 'email',
-                ),
-                ReactiveTextField(
-                  formControlName: 'password',
-                ),
-              ],
-            ),
-          );
-        },
+      child: Scaffold(
+        body: BlocBuilder<LoginFormProviderBloc, LoginFormProviderState>(
+          builder: (context, state) {
+            return ReactiveForm(
+              formGroup: state.viewModel.form,
+              child: Column(
+                children: [
+                  ReactiveTextField(
+                    formControlName: 'email',
+                  ),
+                  ReactiveTextField(
+                    formControlName: 'password',
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

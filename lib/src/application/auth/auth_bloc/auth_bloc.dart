@@ -22,19 +22,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthEvent>((event, emit) {
       event.map(
           userChanged: (event) => _onUserChanged(event, emit),
-          logoutRequested: (event) => _onLogOutRequested(event, emit));
+          logoutRequested: (event) => _onLogOutRequested(event));
     });
     _userSubscription = _authFacade.user
         .listen((user) => add(AuthEvent.userChanged(user: user)));
   }
 
-  void _onLogOutRequested(event, emit) {
+  void _onLogOutRequested(_LogoutRequested event) {
     unawaited(_authFacade.logOut());
   }
 
-  void _onUserChanged(event, emit) {
+  void _onUserChanged(_UserChanged event, Emitter<AuthState> emit) {
     emit(event.user != null
-        ? AuthState.authenticated(user: _authFacade.currentUser!)
+        ? AuthState.authenticated(user: event.user!)
         : const AuthState.unauthenticated());
   }
 
