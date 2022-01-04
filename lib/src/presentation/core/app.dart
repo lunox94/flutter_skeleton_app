@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_skeleton_app/src/presentation/core/theme/app_theme.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../application/auth/auth_bloc/auth_bloc.dart';
 import '../../application/auth/auth_facade.dart';
+import '../../application/core/theme_bloc/theme_bloc.dart';
 import '../../infrastructure/auth/test_auth_facade.dart';
 import '../auth/screens/login.dart';
 import 'screens/home.dart';
 import 'screens/splash.dart';
+import 'theme/app_theme.dart';
 
 class Bootstrapper {
   final Widget _app;
@@ -35,13 +36,29 @@ class _App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => _authBloc,
-      child: MaterialApp.router(
-          theme: AppTheme.light,
-          darkTheme: AppTheme.dark,
-          routeInformationParser: _router.routeInformationParser,
-          routerDelegate: _router.routerDelegate),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => _authBloc,
+        ),
+        BlocProvider(
+          create: (context) => ThemeBloc(),
+        ),
+      ],
+      child: Builder(builder: (context) {
+        // rebuilds the app every time the theme mode changes
+        final themeMode = context.watch<ThemeBloc>().state.when(
+            lightMode: () => ThemeMode.light,
+            darkMode: () => ThemeMode.dark,
+            systemMode: () => ThemeMode.system);
+
+        return MaterialApp.router(
+            theme: AppTheme.light,
+            darkTheme: AppTheme.dark,
+            themeMode: themeMode,
+            routeInformationParser: _router.routeInformationParser,
+            routerDelegate: _router.routerDelegate);
+      }),
     );
   }
 
