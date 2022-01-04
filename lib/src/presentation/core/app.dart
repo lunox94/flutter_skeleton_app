@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_skeleton_app/src/presentation/core/theme/app_theme.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../application/auth/auth_bloc/auth_bloc.dart';
@@ -37,6 +38,8 @@ class _App extends StatelessWidget {
     return BlocProvider(
       create: (context) => _authBloc,
       child: MaterialApp.router(
+          theme: AppTheme.light,
+          darkTheme: AppTheme.dark,
           routeInformationParser: _router.routeInformationParser,
           routerDelegate: _router.routerDelegate),
     );
