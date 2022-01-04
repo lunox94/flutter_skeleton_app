@@ -46,7 +46,7 @@ class _App extends StatelessWidget {
     routes: [
       GoRoute(
         name: 'home',
-        path: '/home',
+        path: '/',
         builder: (context, state) => const HomeScreen(),
       ),
       GoRoute(
@@ -62,22 +62,35 @@ class _App extends StatelessWidget {
     ],
     redirect: (state) {
       // is the user already in the login page?
-      final loggingIn = state.subloc == '/login';
+      final loggingIn = state.subloc == state.namedLocation('login');
 
       // is the user already in the loading page?
-      final loading = state.subloc == '/loading';
+      final loading = state.subloc == state.namedLocation('loading');
 
-      // bundle the location the user is comming from into a query parameter
-      final fromParam = state.subloc == '/' ? '' : '?from=${state.subloc}';
+      // get the location the user comes from
+      final from = state.queryParams['from'] ?? '';
+
+      // get the user's current location
+      final current =
+          state.subloc != state.namedLocation('home') ? state.subloc : '';
+
+      // build query parameter 'from'
+      final fromParam = loggingIn || loading ? from : current;
+
+      final queryParams = {if (fromParam.isNotEmpty) 'from': fromParam};
 
       // decide which route the user should be redirected to based on the app
       // auth state and the current location, 'null' won't redirect anywhere
       return _authBloc.state.when(
-          unknown: () => !loading ? '/loading$fromParam' : null,
-          authenticated: (_) => loggingIn || loading
-              ? state.queryParams['from'] ?? '/home'
+          unknown: () => !loading
+              ? state.namedLocation('loading', queryParams: queryParams)
               : null,
-          unauthenticated: () => !loggingIn ? '/login$fromParam' : null);
+          authenticated: (_) => loggingIn || loading
+              ? state.queryParams['from'] ?? state.namedLocation('home')
+              : null,
+          unauthenticated: () => !loggingIn
+              ? state.namedLocation('login', queryParams: queryParams)
+              : null);
     },
     // changes on the auth state will cause the router to refresh it's route
     refreshListenable: GoRouterRefreshStream(_authBloc.stream),
