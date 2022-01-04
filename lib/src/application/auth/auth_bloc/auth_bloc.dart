@@ -18,9 +18,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc({required AuthFacade authFacade})
       : _authFacade = authFacade,
-        super(authFacade.currentUser != null
-            ? AuthState.authenticated(authFacade.currentUser!)
-            : AuthState.unauthenticated()) {
+        super(const AuthState.unknown()) {
     on<AuthEvent>((event, emit) {
       event.map(
           userChanged: (event) => _onUserChanged(event, emit),
@@ -36,8 +34,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void _onUserChanged(event, emit) {
     emit(event.user != null
-        ? AuthState.authenticated(_authFacade.currentUser!)
-        : AuthState.unauthenticated());
+        ? AuthState.authenticated(user: _authFacade.currentUser!)
+        : const AuthState.unauthenticated());
   }
 
   @override
