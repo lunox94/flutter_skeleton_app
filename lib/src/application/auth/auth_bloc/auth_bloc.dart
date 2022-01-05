@@ -10,8 +10,6 @@ part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
-enum AuthStatus { authenticated, unauthenticated }
-
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthFacade _authFacade;
   late final StreamSubscription<AppUser?> _userSubscription;

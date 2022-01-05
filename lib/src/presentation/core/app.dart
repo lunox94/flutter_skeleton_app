@@ -53,11 +53,12 @@ class _App extends StatelessWidget {
             systemMode: () => ThemeMode.system);
 
         return MaterialApp.router(
-            theme: AppTheme.light,
-            darkTheme: AppTheme.dark,
-            themeMode: themeMode,
-            routeInformationParser: _router.routeInformationParser,
-            routerDelegate: _router.routerDelegate);
+          theme: AppTheme.light,
+          darkTheme: AppTheme.dark,
+          themeMode: themeMode,
+          routeInformationParser: _router.routeInformationParser,
+          routerDelegate: _router.routerDelegate,
+        );
       }),
     );
   }
@@ -102,15 +103,16 @@ class _App extends StatelessWidget {
       // decide which route the user should be redirected to based on the app
       // auth state and the current location, 'null' won't redirect anywhere
       return _authBloc.state.when(
-          unknown: () => !loading
-              ? state.namedLocation('loading', queryParams: queryParams)
-              : null,
-          authenticated: (_) => loggingIn || loading
-              ? state.queryParams['from'] ?? state.namedLocation('home')
-              : null,
-          unauthenticated: () => !loggingIn
-              ? state.namedLocation('login', queryParams: queryParams)
-              : null);
+        unknown: () => !loading
+            ? state.namedLocation('loading', queryParams: queryParams)
+            : null,
+        authenticated: (_) => loggingIn || loading
+            ? state.queryParams['from'] ?? state.namedLocation('home')
+            : null,
+        unauthenticated: () => !loggingIn
+            ? state.namedLocation('login', queryParams: queryParams)
+            : null,
+      );
     },
     // changes on the auth state will cause the router to refresh it's route
     refreshListenable: GoRouterRefreshStream(_authBloc.stream),
