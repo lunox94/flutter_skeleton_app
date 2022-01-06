@@ -8,4 +8,7 @@ class AuthState with _$AuthState {
       _Authenticated;
 
   const factory AuthState.unauthenticated() = _Unauthenticated;
+
+  factory AuthState.fromJson(Map<String, dynamic> json) =>
+      _$AuthStateFromJson(json);
 }

@@ -18,7 +18,9 @@ class TestAuthFacade implements AuthFacade {
       return _user;
     }).asBroadcastStream();
     Future.delayed(
-        const Duration(seconds: 10), () => _userController.add(null));
+        const Duration(seconds: 5),
+        // () => _userController.add(AppUser(id: 'id')));
+        () => _userController.add(null));
   }
 
   @override

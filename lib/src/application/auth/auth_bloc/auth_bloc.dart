@@ -1,16 +1,17 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import '../app_user.dart';
 import '../auth_facade.dart';
 
 part 'auth_bloc.freezed.dart';
+part 'auth_bloc.g.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
+class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
   final AuthFacade _authFacade;
   late final StreamSubscription<AppUser?> _userSubscription;
 
@@ -40,5 +41,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> close() {
     _userSubscription.cancel();
     return super.close();
+  }
+
+  @override
+  AuthState? fromJson(Map<String, dynamic> json) {
+    return AuthState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(AuthState state) {
+    return state.toJson();
   }
 }
