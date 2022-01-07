@@ -8,20 +8,10 @@ import '../../infrastructure/auth/test_auth_facade.dart';
 import 'routes/routing.dart';
 import 'theme/app_theme.dart';
 
-class Bootstrapper {
-  final Widget _app;
-
-  Widget get app => _app;
-
-  Bootstrapper._(Widget app) : _app = app;
-
-  factory Bootstrapper.dev() {
-    return Bootstrapper._(
-      _App(
-        authFacadeBuilder: () => TestAuthFacade(),
-      ),
-    );
-  }
+Widget onDev() {
+  return _App(
+    authFacadeBuilder: () => TestAuthFacade(),
+  );
 }
 
 class _App extends StatelessWidget {

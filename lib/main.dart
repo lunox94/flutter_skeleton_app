@@ -13,7 +13,7 @@ void main() async {
         : await getTemporaryDirectory(),
   );
   HydratedBlocOverrides.runZoned(
-    () => runApp(Bootstrapper.dev().app),
+    () => runApp(onDev()),
     storage: storage,
   );
 }
