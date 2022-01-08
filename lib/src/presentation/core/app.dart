@@ -47,6 +47,7 @@ class _App extends StatelessWidget {
                 darkMode: () => ThemeMode.dark,
                 systemMode: () => ThemeMode.system);
 
+            //build and provide the app's routing system
             return Routing(
               builder: (_, router) => MaterialApp.router(
                 theme: AppTheme.light,

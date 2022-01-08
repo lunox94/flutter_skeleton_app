@@ -7,6 +7,10 @@ import '../../auth/screens/login.dart';
 import '../screens/home.dart';
 import '../screens/splash.dart';
 
+///Provides a [GoRouter] instance with the app's routes which can be used to build
+///the app widget. This widget searches for an [AuthBloc] in its [BuildContext],
+///the bloc is needed to configure the redirections and router refreshing when
+///the authentication state changes.
 class Routing extends StatefulWidget {
   final Widget Function(BuildContext, GoRouter) _builder;
 
