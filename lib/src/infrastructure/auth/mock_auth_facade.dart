@@ -4,7 +4,7 @@ import '../../application/auth/app_user.dart';
 import '../../application/auth/auth_facade.dart';
 import '../../application/auth/login_params.dart';
 
-class TestAuthFacade implements AuthFacade {
+class MockAuthFacade implements AuthFacade {
   AppUser? _currentUser;
 
   final StreamController<AppUser?> _userController;
@@ -12,7 +12,7 @@ class TestAuthFacade implements AuthFacade {
   @override
   late Stream<AppUser?> user;
 
-  TestAuthFacade() : _userController = StreamController() {
+  MockAuthFacade() : _userController = StreamController() {
     user = _userController.stream.map((_user) {
       _currentUser = _user;
       return _user;
