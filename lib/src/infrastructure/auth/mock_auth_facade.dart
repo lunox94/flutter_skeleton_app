@@ -33,8 +33,8 @@ class MockAuthFacade implements AuthFacade {
   }
 
   @override
-  Future<void> loginWithEmailAndPassword(LoginParams params) {
+  Future<void> loginWithEmailAndPassword(LoginParams params) async {
+    await Future.delayed(const Duration(seconds: 10));
     _userController.add(AppUser(id: 'userId', email: params.email));
-    return Future.delayed(const Duration(milliseconds: 1000));
   }
 }
