@@ -1,25 +1,42 @@
-import 'package:flutter_skeleton_app/src/application/auth/auth_bloc/auth_bloc.dart';
-import 'package:flutter_skeleton_app/src/presentation/auth/screens/login.dart';
-import 'package:flutter_skeleton_app/src/presentation/core/screens/home.dart';
-import 'package:flutter_skeleton_app/src/presentation/core/screens/splash.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class Routing {
+import '../../../application/auth/auth_bloc/auth_bloc.dart';
+import '../../auth/screens/login.dart';
+import '../screens/home.dart';
+import '../screens/splash.dart';
+
+class Routing extends StatefulWidget {
+  final Widget Function(BuildContext, GoRouter) _builder;
+
+  const Routing(
+      {Key? key, required Widget Function(BuildContext, GoRouter) builder})
+      : _builder = builder,
+        super(key: key);
+
+  @override
+  State<Routing> createState() => _RoutingState();
+}
+
+class _RoutingState extends State<Routing> {
   late final GoRouter _router;
 
-  static Routing? _instance;
+  @override
+  void initState() {
+    super.initState();
 
-  Routing._(AuthBloc authBloc) {
-    _router = _buildRouter(authBloc);
+    _router = _initRouter(context);
   }
 
-  static Routing instance({required AuthBloc authBloc}) {
-    return _instance ??= Routing._(authBloc);
+  @override
+  Widget build(BuildContext context) {
+    return widget._builder(context, _router);
   }
 
-  GoRouter get router => _router;
+  GoRouter _initRouter(BuildContext context) {
+    final authBloc = context.read<AuthBloc>();
 
-  GoRouter _buildRouter(AuthBloc authBloc) {
     return GoRouter(
       routes: [
         GoRoute(

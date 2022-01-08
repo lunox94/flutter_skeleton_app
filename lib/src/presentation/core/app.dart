@@ -47,15 +47,14 @@ class _App extends StatelessWidget {
                 darkMode: () => ThemeMode.dark,
                 systemMode: () => ThemeMode.system);
 
-            final router =
-                Routing.instance(authBloc: context.read<AuthBloc>()).router;
-
-            return MaterialApp.router(
-              theme: AppTheme.light,
-              darkTheme: AppTheme.dark,
-              themeMode: themeMode,
-              routeInformationParser: router.routeInformationParser,
-              routerDelegate: router.routerDelegate,
+            return Routing(
+              builder: (_, router) => MaterialApp.router(
+                theme: AppTheme.light,
+                darkTheme: AppTheme.dark,
+                themeMode: themeMode,
+                routeInformationParser: router.routeInformationParser,
+                routerDelegate: router.routerDelegate,
+              ),
             );
           }),
         );
