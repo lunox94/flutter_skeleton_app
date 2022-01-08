@@ -4,13 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../application/auth/auth_bloc/auth_bloc.dart';
 import '../../application/auth/auth_facade.dart';
 import '../../application/core/theme_bloc/theme_bloc.dart';
-import '../../infrastructure/auth/test_auth_facade.dart';
+import '../../infrastructure/auth/mock_auth_facade.dart';
 import 'routes/routing.dart';
 import 'theme/app_theme.dart';
 
 Widget onDev() {
   return _App(
-    authFacadeBuilder: () => TestAuthFacade(),
+    authFacadeBuilder: () => MockAuthFacade(),
   );
 }
 
