@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+const _primaryColor = Colors.orange;
+
 class AppTheme {
   static TextTheme get darkTextTheme => _darkTextTheme;
 
@@ -10,80 +12,29 @@ class AppTheme {
 
   static ThemeData get dark => _dark;
 
-  static final TextTheme _lightTextTheme = TextTheme(
-    bodyText1: GoogleFonts.openSans(
-      fontSize: 14.0,
-      fontWeight: FontWeight.w700,
-      color: Colors.black,
-    ),
-    bodyText2: GoogleFonts.openSans(
-      fontSize: 14.0,
-      fontWeight: FontWeight.normal,
-      color: Colors.black,
-    ),
-    headline1: GoogleFonts.openSans(
-      fontSize: 32.0,
-      fontWeight: FontWeight.bold,
-      color: Colors.black,
-    ),
-    headline2: GoogleFonts.openSans(
-      fontSize: 21.0,
-      fontWeight: FontWeight.w700,
-      color: Colors.black,
-    ),
-    headline3: GoogleFonts.openSans(
-      fontSize: 16.0,
-      fontWeight: FontWeight.w600,
-      color: Colors.black,
-    ),
-    headline6: GoogleFonts.openSans(
-      fontSize: 20.0,
-      fontWeight: FontWeight.w600,
-      color: Colors.black,
-    ),
-  );
+  static final TextTheme _lightTextTheme = _buildLightTextTheme();
 
-  static final _darkTextTheme = TextTheme(
-    bodyText1: GoogleFonts.openSans(
-      fontSize: 14.0,
-      fontWeight: FontWeight.w700,
-      color: Colors.white,
-    ),
-    bodyText2: GoogleFonts.openSans(
-      fontSize: 14.0,
-      fontWeight: FontWeight.normal,
-      color: Colors.white,
-    ),
-    headline1: GoogleFonts.openSans(
-      fontSize: 32.0,
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
-    ),
-    headline2: GoogleFonts.openSans(
-      fontSize: 21.0,
-      fontWeight: FontWeight.w700,
-      color: Colors.white,
-    ),
-    headline3: GoogleFonts.openSans(
-      fontSize: 16.0,
-      fontWeight: FontWeight.w600,
-      color: Colors.white,
-    ),
-    headline6: GoogleFonts.openSans(
-      fontSize: 20.0,
-      fontWeight: FontWeight.w600,
-      color: Colors.white,
-    ),
-  );
+  static TextTheme _buildLightTextTheme() {
+    final defaultTheme =
+        GoogleFonts.titilliumWebTextTheme(Typography.blackRedmond);
+    return defaultTheme.copyWith(
+      bodyText2: defaultTheme.bodyText2!.copyWith(color: Colors.black54),
+    );
+  }
+
+  static final _darkTextTheme = _buildDarkTextTheme();
+
+  static TextTheme _buildDarkTextTheme() {
+    final defaultTheme =
+        GoogleFonts.titilliumWebTextTheme(Typography.whiteRedmond);
+    return defaultTheme.copyWith(
+      bodyText2: defaultTheme.bodyText2!.copyWith(color: Colors.white54),
+    );
+  }
 
   static final ThemeData _light = ThemeData(
-    primarySwatch: Colors.orange,
+    primarySwatch: _primaryColor,
     brightness: Brightness.light,
-    checkboxTheme: CheckboxThemeData(
-      fillColor: MaterialStateColor.resolveWith((states) {
-        return Colors.black;
-      }),
-    ),
     appBarTheme: const AppBarTheme(
       foregroundColor: Colors.black,
       backgroundColor: Colors.white,
@@ -93,14 +44,36 @@ class AppTheme {
       backgroundColor: Colors.black,
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      selectedItemColor: Colors.orange,
+      selectedItemColor: _primaryColor,
     ),
     buttonTheme: const ButtonThemeData(padding: EdgeInsets.all(8.0)),
     textTheme: _lightTextTheme,
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all<EdgeInsets>(
+          const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
+        ),
+        foregroundColor: MaterialStateProperty.resolveWith((states) {
+          if (states.contains(MaterialState.disabled)) {
+            return Colors.white30;
+          } else {
+            return Colors.white;
+          }
+        }),
+        overlayColor: MaterialStateProperty.all<Color>(Colors.white12),
+      ),
+    ),
+    inputDecorationTheme: const InputDecorationTheme(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(2.0),
+        ),
+      ),
+    ),
   );
 
   static final ThemeData _dark = ThemeData(
-    primarySwatch: Colors.orange,
+    primarySwatch: _primaryColor,
     brightness: Brightness.dark,
     appBarTheme: AppBarTheme(
       foregroundColor: Colors.white,
@@ -108,11 +81,33 @@ class AppTheme {
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       foregroundColor: Colors.white,
-      backgroundColor: Colors.orange,
+      backgroundColor: _primaryColor,
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      selectedItemColor: Colors.orange,
+      selectedItemColor: _primaryColor,
     ),
-    textTheme: darkTextTheme,
+    textTheme: _darkTextTheme,
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all<EdgeInsets>(
+          const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
+        ),
+        foregroundColor: MaterialStateProperty.resolveWith((states) {
+          if (states.contains(MaterialState.disabled)) {
+            return Colors.white30;
+          } else {
+            return Colors.white;
+          }
+        }),
+        overlayColor: MaterialStateProperty.all<Color>(Colors.white12),
+      ),
+    ),
+    inputDecorationTheme: const InputDecorationTheme(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(2.0),
+        ),
+      ),
+    ),
   );
 }

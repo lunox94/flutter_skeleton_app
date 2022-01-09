@@ -25,6 +25,7 @@ class Login extends StatelessWidget {
         body: BlocBuilder<LoginFormProviderBloc, LoginFormProviderState>(
           builder: (context, state) {
             final viewModel = state.viewModel;
+
             return Center(
               child: Container(
                 alignment: Alignment.center,
@@ -40,19 +41,17 @@ class Login extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Text('Email'),
+                      const SizedBox(height: 8.0),
                       ReactiveTextField(
                         formControlName: 'email',
                       ),
-                      const SizedBox(
-                        height: 24.0,
-                      ),
-                      const Text('Password*'),
+                      const SizedBox(height: 24.0),
+                      const Text('Password *'),
+                      const SizedBox(height: 8.0),
                       ReactiveTextField(
                         formControlName: 'password',
                       ),
-                      const SizedBox(
-                        height: 32.0,
-                      ),
+                      const SizedBox(height: 32.0),
                       Row(
                         children: [
                           Expanded(
