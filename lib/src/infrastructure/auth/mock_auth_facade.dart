@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import '../../application/auth/app_user.dart';
+import '../../application/auth/models/app_user.dart';
 import '../../application/auth/auth_facade.dart';
-import '../../application/auth/login_params.dart';
+import '../../application/auth/models/login_params.dart';
 
 class MockAuthFacade implements AuthFacade {
   AppUser? _currentUser;

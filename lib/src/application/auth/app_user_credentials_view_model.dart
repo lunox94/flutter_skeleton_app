@@ -1,4 +1,4 @@
-import 'package:flutter_skeleton_app/src/application/auth/login_params.dart';
+import 'package:flutter_skeleton_app/src/application/auth/models/login_params.dart';
 import 'package:form_view_model/form_view_model.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
-import '../app_user.dart';
+import '../models/app_user.dart';
 import '../auth_facade.dart';
 
 part 'auth_bloc.freezed.dart';
