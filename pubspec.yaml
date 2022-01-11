@@ -41,6 +41,8 @@ dependencies:
     json_annotation: ^4.4.0
     path_provider: ^2.0.8
     reactive_forms: ^11.0.0
+    flutter_localizations:
+        sdk: flutter
 
 dev_dependencies:
     build_runner: ^2.1.7
@@ -90,3 +92,5 @@ flutter:
     #
     # For details regarding fonts from package dependencies,
     # see https://flutter.dev/custom-fonts/#from-packages
+flutter_intl:
+    enabled: true
